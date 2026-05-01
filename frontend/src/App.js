@@ -11,7 +11,7 @@ function App() {
       {/* Main Area */}
       <div className="flex flex-col flex-1 h-full min-w-0">
         {/* Canvas Area */}
-        <div className="relative flex-1 bg-slate-950" style={{ height: 'calc(100vh - 100px)' }}>
+        <div className="relative flex-1 bg-slate-950 w-full h-full">
           <PipelineUI />
         </div>
         

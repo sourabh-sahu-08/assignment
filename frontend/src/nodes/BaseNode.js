@@ -3,7 +3,7 @@ import { Handle, Position } from 'reactflow';
 export const BaseNode = ({ id, title, inputs = [], outputs = [], children, selected }) => {
   return (
     <div className={`
-      bg-slate-800 border-[1.5px] rounded-2xl shadow-2xl min-w-[220px] transition-all duration-300 overflow-visible
+      bg-slate-800 border-[1.5px] rounded-2xl shadow-2xl min-w-[220px] transition-colors duration-300 overflow-visible
       ${selected ? 'border-indigo-500 shadow-indigo-500/30 ring-1 ring-indigo-500/50' : 'border-slate-700/50 hover:border-slate-500'}
     `}>
       {/* Header */}

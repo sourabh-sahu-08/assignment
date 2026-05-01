@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+:root {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --border-color: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --accent-color: #6366f1;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Custom styles for React Flow handles */
+.react-flow__handle {
+  width: 8px !important;
+  height: 8px !important;
+  border: 2px solid var(--card-bg) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.5) !important;
+}
+
+/* Specific colors for handles */
+.react-flow__handle-left {
+  background-color: #10b981 !important; /* Green */
+}
+
+.react-flow__handle-right {
+  background-color: #a855f7 !important; /* Purple */
+}
+
+/* Node styles */
+.submit-container {
+  @apply flex items-center justify-center p-6 bg-slate-900/50 border-t border-slate-800 backdrop-blur-md;
+}
+
+.submit-button {
+  @apply px-10 py-3 text-white font-bold rounded-xl transition-all duration-300 shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2;
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+}
+
+.submit-button:hover:not(:disabled) {
+  @apply brightness-110 shadow-indigo-500/20;
+  box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+/* Modal styles */
+.modal-overlay {
+  @apply fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  @apply bg-slate-800 border border-slate-700 rounded-3xl shadow-2xl max-w-md w-full p-8 relative;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Edge styling */
+.react-flow__edge-path {
+  stroke-width: 2.5;
+  stroke: #475569;
+  transition: all 0.3s;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #6366f1;
+  stroke-width: 3.5;
+}
+
+.react-flow__controls {
+  @apply !bg-slate-800 !border-slate-700 !shadow-2xl !rounded-2xl overflow-hidden !m-4;
+}
+
+.react-flow__controls-button {
+  @apply !bg-slate-800 !border-slate-700 !fill-slate-400 hover:!bg-slate-700 !border-b;
+}
+
+.react-flow__minimap {
+  @apply !bg-slate-900/80 !border-slate-700 !rounded-2xl !shadow-2xl !m-4 backdrop-blur-md;
+}
+
+.react-flow__minimap-mask {
+  @apply !fill-slate-950/50;
+}
+
+.react-flow__minimap-node {
+  @apply !fill-slate-700 !stroke-none;
+}
+
+.react-flow {
+  width: 100% !important;
+  height: 100% !important;
+}
+

@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# Pipeline Architect ⚡
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A **visual, node-based pipeline builder** where you can drag, connect, and validate directed acyclic graphs (DAGs) — built as a technical assessment for VectorShift.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+### 🖼️ Canvas
+| Feature | Details |
+|---|---|
+| Drag & drop nodes | From sidebar onto canvas |
+| Click to add | Click any sidebar card to place a node instantly |
+| Keyboard Delete | Select nodes/edges → `Delete` key to remove |
+| Editable pipeline name | Click the title in the top navbar |
+| Empty state | Illustrated guide when canvas is empty |
+| Snap-to-grid | 16px grid for clean alignment |
+| Fit-view on load | Canvas auto-fits to content |
+| Color-coded minimap | Each node type has a unique minimap color |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🗃️ Sidebar
+| Feature | Details |
+|---|---|
+| Categorized nodes | Data I/O · AI/LLM · Logic · Utilities |
+| Live search | Filter nodes by name or description |
+| Live stats | Node count, edge count, total types |
+| Color-coded cards | Each node type has an accent color |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🟦 Nodes (9 types)
 
-### `npm test`
+| Node | Type Key | Description |
+|---|---|---|
+| **Input** | `customInput` | Pipeline entry — field name + 5 data types |
+| **Output** | `customOutput` | Pipeline exit — output name + 5 formats |
+| **LLM** | `llm` | Model selector (GPT-4o, Claude, Gemini…) + temperature slider |
+| **Text** | `text` | Template with `{{variable}}` syntax + char counter |
+| **Math** | `math` | 6 operations with live formula preview |
+| **Filter** | `filter` | Field/operator/value with 9 operators + condition preview |
+| **Delay** | `delay` | Duration with ms / s / min unit selector |
+| **Logger** | `logger` | Log level selector + prefix + passthrough output |
+| **API Request** | `apiRequest` | Method (5) + URL + auth type (4) |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 📊 Submit Bar & Results Modal
+- Live node & edge count display
+- Pipeline validation warnings (missing Input/Output node)
+- Inline error display if server is unreachable
+- **Clear Pipeline** button
+- Results modal shows: nodes, edges, DAG validity, graph density
+- ESC key closes modal
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🏗️ Architecture
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+assignment/
+├── backend/
+│   ├── main.py            # FastAPI — /health, /pipelines/parse, /pipelines/validate
+│   └── requirements.txt
+└── frontend/
+    ├── public/
+    │   └── index.html     # Inter + JetBrains Mono fonts, SEO meta tags
+    └── src/
+        ├── App.js          # Root layout
+        ├── index.css       # Design system — CSS vars, animations, ReactFlow overrides
+        ├── store.js        # Zustand global state
+        ├── ui.js           # ReactFlow canvas with navbar, empty state, keyboard handler
+        ├── toolbar.js      # Sidebar with categories, search, stats
+        ├── draggableNode.js# Color-coded draggable/clickable node cards
+        ├── submit.js       # Submit bar with validation + clear
+        ├── components/
+        │   └── Modal.js    # Analysis results modal
+        └── nodes/
+            ├── BaseNode.js         # Shared node shell — accent border, delete button, port labels
+            ├── inputNode.js
+            ├── outputNode.js
+            ├── llmNode.js
+            ├── textNode.js
+            ├── MathNode.js
+            ├── FilterNode.js
+            ├── DelayNode.js
+            ├── LoggerNode.js
+            └── APIRequestNode.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🚀 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
+- **Node.js** ≥ 18
+- **Python** ≥ 3.10
+- **pip**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd backend
 
-## Learn More
+# (Optional) create a virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS/Linux
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+API available at **http://127.0.0.1:8000**  
+Interactive docs at **http://127.0.0.1:8000/docs**
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Frontend
 
-### Analyzing the Bundle Size
+```bash
+cd frontend
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+App available at **http://localhost:3000**
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔌 API Reference
 
-### Advanced Configuration
+### `GET /health`
+Returns server health status.
+```json
+{ "status": "healthy", "timestamp": "...", "version": "2.0.0" }
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### `POST /pipelines/parse`
+Basic DAG check.
+```json
+// Request
+{ "nodes": [...], "edges": [...] }
 
-### Deployment
+// Response
+{ "num_nodes": 3, "num_edges": 2, "is_dag": true }
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### `POST /pipelines/validate`
+Extended analysis — components, isolated nodes, source/sink detection, warnings.
+```json
+// Response
+{
+  "num_nodes": 3,
+  "num_edges": 2,
+  "is_dag": true,
+  "topological_order": ["customInput-1", "llm-1", "customOutput-1"],
+  "num_components": 1,
+  "isolated_nodes": [],
+  "source_nodes": ["customInput-1"],
+  "sink_nodes": ["customOutput-1"],
+  "warnings": []
+}
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend framework | React 18 |
+| Flow canvas | React Flow 11 |
+| State management | Zustand |
+| Styling | Tailwind CSS v3 + Vanilla CSS |
+| Backend | FastAPI (Python) |
+| DAG algorithm | Kahn's BFS topological sort |
+| Fonts | Inter + JetBrains Mono (Google Fonts) |
+
+---
+
+## 📐 Design System
+
+- **Color palette**: Slate 950 base, Indigo/Purple accents
+- **Typography**: Inter (UI) · JetBrains Mono (code/previews)
+- **Node accent colors**: Each of the 9 node types has a unique hue
+- **Animations**: Edge dash animation, handle glow, modal slide-up, pulse-glow status dot
+
+---
+
+*Built by Sourabh Sahu*

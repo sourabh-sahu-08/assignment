@@ -113,13 +113,6 @@ export const BaseNode = ({
               position={input.position || Position.Left}
               id={input.id}
               style={{
-                top: input.top || (inputs.length > 1
-                  ? `${((index + 1) * 100) / (inputs.length + 1)}%`
-                  : '50%'),
-                ...input.style,
-              }}
-              className="!w-3 !h-3 !border-2 !transition-all"
-              style={{
                 background: '#10b981',
                 borderColor: '#162033',
                 top: input.top || (inputs.length > 1
@@ -128,6 +121,7 @@ export const BaseNode = ({
                 boxShadow: '0 0 6px rgba(16,185,129,0.5)',
                 ...input.style,
               }}
+              className="!w-3 !h-3 !border-2 !transition-all"
             />
             {/* Port label */}
             {input.label && (
